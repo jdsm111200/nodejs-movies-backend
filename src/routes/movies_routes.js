@@ -21,8 +21,7 @@ router.get("/", async (req, res) => {
 router.get("/filter", async (req, res) => {
   try {
     const db = await connect();
-    const text = req.params.text;
-    console.log(query.text);
+    const text = req.query.text;
     const pipeline = [
       {
         $match: {

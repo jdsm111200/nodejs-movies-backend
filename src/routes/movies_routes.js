@@ -21,13 +21,13 @@ router.get("/", async (req, res) => {
 router.get("/filter", async (req, res) => {
   try {
     const db = await connect();
-    const query = req.body;
+    const text = req.params.text;
     console.log(query.text);
     const pipeline = [
       {
         $match: {
           $text: {
-            $search: query.text,
+            $search: text,
           },
         },
       },

@@ -1,6 +1,5 @@
 require("dotenv").config(); //modulo para usar variables de entorno
-const app = require("./server");
-const { connect } = require("./database");
+const app = require("./server"); //importacion de la app express
 
 //escuchando peticiones
 main();

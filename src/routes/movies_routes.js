@@ -1,3 +1,4 @@
+const { query } = require("express");
 const express = require("express");
 const router = express.Router();
 const { connect, close } = require("../database");
@@ -6,7 +7,7 @@ const { connect, close } = require("../database");
 router.get("/", async (req, res) => {
   try {
     const db = await connect();
-    const pipeline = [{ $match: {} }, { $skip: 10 }, { $limit: 10 }];
+    const pipeline = req.body;
     const result = await db.collection("movies").aggregate(pipeline).toArray();
     res.json(result);
   } catch (error) {
@@ -20,11 +21,13 @@ router.get("/", async (req, res) => {
 router.get("/filter", async (req, res) => {
   try {
     const db = await connect();
+    const query = req.body;
+    console.log(query.text);
     const pipeline = [
       {
         $match: {
           $text: {
-            $search: "War",
+            $search: query.text,
           },
         },
       },

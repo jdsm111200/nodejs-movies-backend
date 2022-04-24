@@ -1,4 +1,3 @@
-const { query } = require("express");
 const express = require("express");
 const router = express.Router();
 const { connect, close } = require("../database");

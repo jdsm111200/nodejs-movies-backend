@@ -7,7 +7,8 @@ const app = express();
 app.use(express.json());
 
 //rutas
-app.use(require("./routes/index_routes"));
+app.use("/", require("./routes/index_routes"));
 app.use("/movies", require("./routes/movies_routes"));
+app.use("/comments", require("./routes/comments_routes"));
 
 module.exports = app;

@@ -10,5 +10,6 @@ app.use(express.json());
 app.use("/", require("./routes/index_routes"));
 app.use("/movies", require("./routes/movies_routes"));
 app.use("/comments", require("./routes/comments_routes"));
+app.use("/user", require("./routes/auth"));
 
 module.exports = app;

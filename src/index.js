@@ -8,6 +8,6 @@ async function main() {
     await app.listen(process.env.PORT);
     console.log(`Escuchando en el puerto ${process.env.PORT}`);
   } catch (error) {
-    console.log();
+    console.log(error);
   }
 }

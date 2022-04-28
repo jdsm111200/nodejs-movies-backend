@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const { connect, close } = require("../database");
 const { schemaRegister, schemaLogin } = require("../schemas/auth_schemas");
 
@@ -13,7 +14,7 @@ async function encrypt(password) {
   return passwordEncrypted;
 }
 
-const loginView = async (req, res) => {
+const login = async (req, res) => {
   const user = { email: req.body.email, password: req.body.password };
   //Validacion del Body Request
   const { error } = schemaLogin.validate(user);
@@ -37,7 +38,19 @@ const loginView = async (req, res) => {
         .status(400)
         .json({ error: true, message: "Email or Password is incorrect" });
     }
-    res.json({ error: false, message: "Welcome" });
+
+    //Creacion del JWT
+    const token = jwt.sign(
+      {
+        name: userDB.name,
+        id: userDB._id,
+      },
+      process.env.TOKEN_SECRET
+    );
+
+    res
+      .header("auth_token", token)
+      .json({ error: false, message: "Welcome", token: token });
   } catch (error) {
     console.log(error);
     res.json(error);
@@ -46,7 +59,7 @@ const loginView = async (req, res) => {
   }
 };
 
-const registerView = async (req, res) => {
+const register = async (req, res) => {
   const user = {
     name: req.body.name,
     email: req.body.email,
@@ -83,4 +96,4 @@ const registerView = async (req, res) => {
   }
 };
 
-module.exports = { registerView, loginView };
+module.exports = { register, login };

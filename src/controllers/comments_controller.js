@@ -99,6 +99,7 @@ const userComments = async (req, res) => {
       comments: results,
       actual_page: req.query.page,
       last_page: Math.ceil(pages),
+      user: req.user,
     });
   } catch (error) {
     res.json(error.message);

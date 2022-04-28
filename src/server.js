@@ -8,8 +8,8 @@ app.use(express.json());
 
 //rutas
 app.use("/", require("./routes/index_routes"));
-app.use("/movies", require("./routes/movies_routes"));
-app.use("/comments", require("./routes/comments_routes"));
-app.use("/user", require("./routes/auth"));
+app.use("/api/movies", require("./routes/movies_routes"));
+app.use("/api/comments", require("./routes/comments_routes"));
+app.use("/api/user", require("./routes/auth"));
 
 module.exports = app;
